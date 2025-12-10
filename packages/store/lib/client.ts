@@ -8,7 +8,7 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL not found – move .env to project root (betterUpTime/.env)");
 }
 
-import { PrismaClient } from "../prisma/generated/prisma/client";
+import { PrismaClient } from "../lib/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 
