@@ -30,11 +30,11 @@ router.post("/singin",async(req,res)=>{
 			username:data.data?.username
 		}
 	})
-	if (!user && user.password!==data.data?.password) {
+	if (user!.password!==data.data?.password) {
 		res.json(409).send("")
 	}
 	const token=jwt.sign({
-		sub:user.id
+		sub:user?.id
 	},process.env.JWT_SECRET!)
 	res.json({
 		token
