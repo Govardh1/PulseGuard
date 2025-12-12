@@ -1,21 +1,18 @@
-
-import { prisma } from "store/cleint";
-import {xAddBulk} from "redisstream/client"
-async function main() {
-	const websites= await prisma.website.findMany({
+import {prisma} from "store/cleint"
+import { xADDBulk } from "redisstream/client"
+async function main(){
+	const website=await prisma.website.findMany({
 		select:{
 			url:true,
 			id:true
 		}
-	 })
-	 await xAddBulk(websites.map(w=>({
+	})
+	await xADDBulk(website.map(w=>({
 		url:w.url,
 		id:w.id
-	 })));
+	})))
 }
 
-
-
 setInterval(()=>{
-main()
+	main()
 },3*1000*60)
