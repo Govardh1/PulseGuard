@@ -1,28 +1,22 @@
 import { createClient } from "redis";
-const client = await createClient()
-	.on("error", (err) => console.log("Redis client error", err)
-	).connect()
 
-type websiteEvent = {
-	url: string,
-	id: string
-}
-
-async function xAdd({ url, id }: websiteEvent) {
-	await client.xAdd("betteruptime:website", "*", {
-		url,
-		id
+const client=createClient()
+	.on("error",(err)=>console.log("redis client error",err))
+	.connect()
+type website={url :string,id:string}
+async function xAdd({url,id}:website) {
+	(await client).xAdd("betteruptime:website","*",{
+		url,id
 	})
 }
 
-
-export async function xAddBulk(websites: websiteEvent[]) {
-  for (let i = 0; i < websites.length; i++) {
-    const item = websites[i];
-    if (!item) continue; 
-    await xAdd({
-      url: item.url,
-      id: item.id,
-    });
-  }
+export async function xAddBulk(websites:website[]):Promise<void>{
+	for (let i = 0; i < websites.length; i++) {
+		const item=websites[i];
+		if (!item) {
+			continue
+		}
+		url:item?.url
+		id:item?.id	
+	}
 }
