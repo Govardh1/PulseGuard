@@ -11,6 +11,9 @@ async function main(){
 		url:w.url,
 		id:w.id
 	})))
+
+
+	
 }
 
 setInterval(()=>{
