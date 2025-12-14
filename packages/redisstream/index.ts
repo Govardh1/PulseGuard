@@ -1,21 +1,19 @@
 import { createClient } from "redis";
-const client=createClient()
+const client=await createClient()
 	.on("error",(err)=>{console.log("redis stream error",err)})
 	.connect()
-type website={url:string,id:string}
-async function  xADD({url,id}:website) {
-	(await client).xAdd("betteruptime:website","*",{
+type websiteEvent={url:string,id:string}
+async function  xADD({url,id}:websiteEvent) {
+	await client.xAdd("betteruptime:website","*",{
 		url,id
 	})
 }
 
-export async function xADDBulk(websites:website[]) {
+export async function xADDBulk(websites:websiteEvent[]) {
 	for (let i = 0; i < websites.length; i++) {
-		const item=websites[i]
-		if (!item) {
-			continue
-		}
-		url:item.url
-		id:item.id
+		await xADD({
+			url:websites[i]?.url as string,
+			id:websites[i]?.id as string
+		})
 	}
 }
