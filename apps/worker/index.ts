@@ -1,5 +1,5 @@
 import axios from "axios";
-import { xACK, xAckbUlk, xADDBulk, xReadGroup } from "redisstream/client"
+import { xAckbUlk, xADDBulk, xReadGroup } from "redisstream/client"
 import { prisma } from "store/cleint"
 const REGION_ID = process.env.REGION_ID!
 const WORKER_ID = process.env.WORKER_ID!
